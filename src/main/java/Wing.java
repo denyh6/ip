@@ -8,26 +8,31 @@ public class Wing {
                 + " \\   /\\   /  _||_ | || || |__  |\n"
                 + "  \\_/  \\_/  |____||_|__||______|\n";
 
+        String bar = "____________________________________________________________\n";
+
         String StartMsg
-                = """
-                ____________________________________________________________
-                Hello! I'm Wing
-                What can I do for you?
-                ____________________________________________________________""";
+                = bar + "Hello! I'm Wing\nWhat can I do for you?\n" + bar;
 
         System.out.println("Hello from\n" + logo + StartMsg);
         Scanner in = new Scanner(System.in);
-        boolean isTalking = true;
-        while (isTalking) {
+        String[] tasks = new String[100];
+        int taskCounter = 0;
+        while (true) {
             String line = in.nextLine();
             if (line.equals("bye")) {
-                System.out.println("____________________________________________________________\n"
-                        + "Ok. Bye." + "\n____________________________________________________________");
-                isTalking = false;
+                System.out.println(bar + "Ok. Bye.\n" + bar);
                 break;
+            } else if (line.equals("list")) {
+                System.out.print(bar);
+                for (int i = 0; i < taskCounter; i++) {
+                    System.out.println((i + 1) + ": " + tasks[i]);
+                }
+                System.out.print(bar);
+            } else {
+                tasks[taskCounter] = line;
+                taskCounter++;
+                System.out.println(bar + "added: " + line + "\n" + bar);
             }
-            System.out.println("____________________________________________________________\n"
-                    + line + "\n____________________________________________________________");
         }
     }
 }
