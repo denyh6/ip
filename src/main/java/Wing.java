@@ -16,35 +16,74 @@ public class Wing {
         String StartMsg
                 = bar + "Hello! I'm Wing\nWhat can I do for you?\n" + bar;
 
-        System.out.println("Hello from\n" + logo + StartMsg);
+        System.out.println("Hello from" + System.lineSeparator() + logo + StartMsg);
         Scanner in = new Scanner(System.in);
         Task[] tasks = new Task[100];
         int taskCounter = 0;
         while (true) {
-            String line = in.nextLine();
-            if (line.equals("bye")) {
-                System.out.println(bar + "Ok. Bye.\n" + bar);
-                break;
-            } else if (line.equals("list")) {
-                System.out.print(bar + "Here are the tasks in your list:\n");
+            String line = in.nextLine().trim();
+            int firstSpaceIndex = line.indexOf(" ");
+            String firstWord = (firstSpaceIndex > -1) ? line.substring(0, firstSpaceIndex) : line;
+
+            switch (firstWord) {
+            case "bye":
+                System.out.println(bar + "Ok. Bye." + System.lineSeparator() + bar);
+                return;
+
+            case "list":
+                System.out.print(bar + "Here are the tasks in your list:" + System.lineSeparator());
                 for (int i = 0; i < taskCounter; i++) {
-                    System.out.println((i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                    System.out.println((i + 1) + ". " + tasks[i].toString());
                 }
                 System.out.print(bar);
-            } else if (line.startsWith("mark")) {
-                tasks[Integer.parseInt(line.substring(5)) - 1].markAsDone();
+                break;
+
+            case "mark":
+                int taskToMark = Integer.parseInt(line.substring(5)) - 1;
+                tasks[taskToMark].markAsDone();
                 System.out.println(bar + "YAY! I've marked this task as done:\n  ["
-                        + tasks[Integer.parseInt(line.substring(5)) - 1].getStatusIcon() + "] "
-                        + tasks[Integer.parseInt(line.substring(5)) - 1].getDescription() + "\n" + bar);
-            } else if (line.startsWith("unmark")) {
-                tasks[Integer.parseInt(line.substring(7)) - 1].markAsNotDone();
+                        + tasks[taskToMark].getStatusIcon() + "] "
+                        + tasks[taskToMark].getDescription() + System.lineSeparator() + bar);
+                break;
+
+            case "unmark":
+                int taskToUnmark = Integer.parseInt(line.substring(7)) - 1;
+                tasks[taskToUnmark].markAsNotDone();
                 System.out.println(bar + "oof sure. I've marked this task as not done yet:\n  ["
-                        + tasks[Integer.parseInt(line.substring(7)) - 1].getStatusIcon() + "] "
-                        + tasks[Integer.parseInt(line.substring(7)) - 1].getDescription() + "\n" + bar);
-            } else {
-                tasks[taskCounter] = new Task(line);
-                System.out.println(bar + "added: " + tasks[taskCounter].getDescription() + "\n" + bar);
+                        + tasks[taskToUnmark].getStatusIcon() + "] "
+                        + tasks[taskToUnmark].getDescription() + System.lineSeparator() + bar);
+                break;
+
+            case "todo":
+                String taskTodo = line.substring(5);
+                tasks[taskCounter] = new Todo(taskTodo);
+                System.out.println(bar + "sigh another todo. I've added this task: " + System.lineSeparator()
+                        + tasks[taskCounter].toString() + System.lineSeparator()
+                        + "Now you have " + (taskCounter + 1) + " task(s) in the list." + System.lineSeparator() + bar);
                 taskCounter++;
+                break;
+
+            case "deadline":
+                int byIndex = line.indexOf("/by");
+                String taskToDeadline = line.substring(9, byIndex - 1);
+                String by = line.substring(byIndex + 4);
+                tasks[taskCounter] = new Deadline(taskToDeadline, by);
+                System.out.println(bar + "yikes another deadline. I've added this task: " + System.lineSeparator()
+                        + tasks[taskCounter].toString() + System.lineSeparator()
+                        + "Now you have " + (taskCounter + 1) + " task(s) in the list." + System.lineSeparator() + bar);
+                taskCounter++;
+                break;
+
+            case "event":
+                int startIndex = line.indexOf("/from");
+                String taskToEvent = line.substring(6, startIndex - 1);
+                String startToEndDate = line.substring(startIndex);
+                tasks[taskCounter] = new Event(taskToEvent, startToEndDate);
+                System.out.println(bar + "GOSH another event. I've added this task: " + System.lineSeparator()
+                        + tasks[taskCounter].toString() + System.lineSeparator()
+                        + "Now you have " + (taskCounter + 1) + " task(s) in the list." + System.lineSeparator() + bar);
+                taskCounter++;
+                break;
             }
         }
     }
