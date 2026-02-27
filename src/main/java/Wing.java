@@ -18,23 +18,32 @@ public class Wing {
         System.out.print(DIVIDER);
     }
 
-    private static void markTask(Task[] tasks, String line){
+    private static void markTask(Task[] tasks, String line) throws NoSuchTaskException {
         int taskToMark = Integer.parseInt(line.substring(5)) - 1;
+        if (taskToMark < 0 || taskToMark >= taskCounter) {
+            throw new NoSuchTaskException();
+        }
         tasks[taskToMark].markAsDone();
         System.out.println(DIVIDER + "YAY! I've marked this task as done:\n  ["
                 + tasks[taskToMark].getStatusIcon() + "] "
                 + tasks[taskToMark].getDescription() + System.lineSeparator() + DIVIDER);
     }
 
-    private static void unmarkTask(Task[] tasks, String line){
+    private static void unmarkTask(Task[] tasks, String line) throws NoSuchTaskException {
         int taskToUnmark = Integer.parseInt(line.substring(7)) - 1;
+        if (taskToUnmark < 0 || taskToUnmark >= taskCounter) {
+            throw new NoSuchTaskException();
+        }
         tasks[taskToUnmark].markAsNotDone();
         System.out.println(DIVIDER + "oof sure. I've marked this task as not done yet:\n  ["
                 + tasks[taskToUnmark].getStatusIcon() + "] "
                 + tasks[taskToUnmark].getDescription() + System.lineSeparator() + DIVIDER);
     }
 
-    private static void addTodo(Task[] tasks, String line){
+    private static void addTodo(Task[] tasks, String line) throws NoDescriptionException {
+        if (line.equals("todo")) {
+            throw new NoDescriptionException();
+        }
         String taskTodo = line.substring(5);
         tasks[taskCounter] = new Todo(taskTodo);
         System.out.println(DIVIDER + "sigh another todo. I've added this task: " + System.lineSeparator()
@@ -43,8 +52,14 @@ public class Wing {
         taskCounter++;
     }
 
-    private static void addDeadline(Task[] tasks, String line){
+    private static void addDeadline(Task[] tasks, String line) throws NoByException, NoDescriptionException {
         int byIndex = line.indexOf("/by");
+        if (line.equals("deadline")) {
+            throw new NoDescriptionException();
+        }
+        if (byIndex == -1) {
+            throw new NoByException();
+        }
         String taskToDeadline = line.substring(9, byIndex - 1);
         String by = line.substring(byIndex + 4);
         tasks[taskCounter] = new Deadline(taskToDeadline, by);
@@ -54,8 +69,18 @@ public class Wing {
         taskCounter++;
     }
 
-    private static void addEvent(Task[] tasks, String line){
+    private static void addEvent(Task[] tasks, String line)
+            throws NoFromException, NoToException, NoDescriptionException {
         int startIndex = line.indexOf("/from");
+        if (line.equals("event")) {
+            throw new NoDescriptionException();
+        }
+        if (startIndex == -1) {
+            throw new NoFromException();
+        }
+        if (!line.contains("/to")) {
+            throw new NoToException();
+        }
         String taskToEvent = line.substring(6, startIndex - 1);
         String startToEndDate = line.substring(startIndex);
         tasks[taskCounter] = new Event(taskToEvent, startToEndDate);
@@ -63,10 +88,6 @@ public class Wing {
                 + tasks[taskCounter].toString() + System.lineSeparator()
                 + "Now you have " + (taskCounter + 1) + " task(s) in the list." + System.lineSeparator() + DIVIDER);
         taskCounter++;
-    }
-
-    private static void printCommandError(){
-        System.out.println(DIVIDER + "What talking you?" + System.lineSeparator() + DIVIDER);
     }
 
     public static void main(String[] args) {
@@ -98,35 +119,53 @@ public class Wing {
                 break;
 
             case "mark":
-                markTask(tasks, line);
+                try {
+                    markTask(tasks, line);
+                } catch (NoSuchTaskException e) {
+                    System.out.println(DIVIDER + "EH! No such task!" + System.lineSeparator() + DIVIDER);
+                }
                 break;
 
             case "unmark":
-                unmarkTask(tasks, line);
+                try {
+                    unmarkTask(tasks, line);
+                } catch (NoSuchTaskException e) {
+                    System.out.println(DIVIDER + "EH! No such task!" + System.lineSeparator() + DIVIDER);
+                }
                 break;
 
             case "todo":
-                addTodo(tasks, line);
+                try {
+                    addTodo(tasks, line);
+                } catch (NoDescriptionException e) {
+                    System.out.println(DIVIDER + "EH! Forgot your description!" + System.lineSeparator() + DIVIDER);
+                }
                 break;
 
             case "deadline":
-                if (line.contains("/by")) {
+                try {
                     addDeadline(tasks, line);
-                } else {
-                    printCommandError();
+                } catch (NoByException e) {
+                    System.out.println(DIVIDER + "EH! Forgot your /by deadline!" + System.lineSeparator() + DIVIDER);
+                } catch (NoDescriptionException e) {
+                    System.out.println(DIVIDER + "EH! Forgot your description!" + System.lineSeparator() + DIVIDER);
                 }
                 break;
 
             case "event":
-                if (line.contains("/from") && line.contains("/to")){
+                try {
                     addEvent(tasks, line);
-                } else {
-                    printCommandError();
+                } catch (NoFromException e) {
+                    System.out.println(DIVIDER + "EH! Forgot your /from date!" + System.lineSeparator() + DIVIDER);
+                } catch (NoToException e) {
+                    System.out.println(DIVIDER + "EH! Forgot your /to date!" + System.lineSeparator() + DIVIDER);
+                } catch (NoDescriptionException e) {
+                    System.out.println(DIVIDER + "EH! Forgot your description!" + System.lineSeparator() + DIVIDER);
                 }
                 break;
 
             default:
-                printCommandError();
+                System.out.println(DIVIDER + "EH! What talking you?" + System.lineSeparator() + DIVIDER);
                 break;
             }
         }
