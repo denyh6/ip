@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -63,7 +65,7 @@ public class Ui {
                 + task.toString() + System.lineSeparator() + DIVIDER);
     }
 
-    public void showList(ArrayList<Task> tasks) {
+    public void showList(TaskList tasks) {
         System.out.print(DIVIDER + "Here's your list:" + System.lineSeparator());
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(" " + (i + 1) + ". " + tasks.get(i).toString());
@@ -79,7 +81,17 @@ public class Ui {
         System.out.println(ERRORDIVIDER + error + System.lineSeparator() + ERRORDIVIDER);
     }
 
-    public void showSavedList(Scanner scanFile) {
+    public void showFileContents() throws IOException {
+        File dir = new File("./data");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        File file = new File("./data/wing.txt");
+        if (!file.exists()) {
+            file.createNewFile();
+            return;
+        }
+        Scanner scanFile = new Scanner(file);
         System.out.println("Here's your previous saved list btw");
         while (scanFile.hasNext()) {
             System.out.println(scanFile.nextLine());

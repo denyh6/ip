@@ -8,8 +8,9 @@ import java.io.FileNotFoundException;
 public class Wing {
 
     private static Ui ui;
+    private static TaskList tasks;
 
-    private static void markTask(ArrayList<Task> tasks, String line) throws NoSuchTaskException {
+    private static void markTask(TaskList tasks, String line) throws NoSuchTaskException {
         int taskToMark = Integer.parseInt(line.substring(5)) - 1;
         if (taskToMark < 0 || taskToMark >= tasks.size()) {
             throw new NoSuchTaskException();
@@ -18,7 +19,7 @@ public class Wing {
         ui.showMarkTask(tasks.get(taskToMark));
     }
 
-    private static void unmarkTask(ArrayList<Task> tasks, String line) throws NoSuchTaskException {
+    private static void unmarkTask(TaskList tasks, String line) throws NoSuchTaskException {
         int taskToUnmark = Integer.parseInt(line.substring(7)) - 1;
         if (taskToUnmark < 0 || taskToUnmark >= tasks.size()) {
             throw new NoSuchTaskException();
@@ -27,7 +28,7 @@ public class Wing {
         ui.showUnmarkTask(tasks.get(taskToUnmark));
     }
 
-    private static void addTodo(ArrayList<Task> tasks, String line) throws NoDescriptionException {
+    private static void addTodo(TaskList tasks, String line) throws NoDescriptionException {
         if (line.equals("todo")) {
             throw new NoDescriptionException();
         }
@@ -37,7 +38,7 @@ public class Wing {
         ui.showAddTask(newTask, tasks.size());
     }
 
-    private static void addDeadline(ArrayList<Task> tasks, String line) throws NoByException, NoDescriptionException {
+    private static void addDeadline(TaskList tasks, String line) throws NoByException, NoDescriptionException {
         int byIndex = line.indexOf("/by");
         if (line.equals("deadline")) {
             throw new NoDescriptionException();
@@ -52,7 +53,7 @@ public class Wing {
         ui.showAddTask(newDeadline, tasks.size());
     }
 
-    private static void addEvent(ArrayList<Task> tasks, String line)
+    private static void addEvent(TaskList tasks, String line)
             throws NoFromException, NoToException, NoDescriptionException {
         int startIndex = line.indexOf("/from");
         if (line.equals("event")) {
@@ -71,33 +72,19 @@ public class Wing {
         ui.showAddTask(newEvent, tasks.size());
     }
 
-    private static void deleteTask(ArrayList<Task> tasks, String line) throws NoSuchTaskException {
+    private static void deleteTask(TaskList tasks, String line) throws NoSuchTaskException {
         int taskToDelete = Integer.parseInt(line.substring(7)) - 1;
         if (taskToDelete < 0 || taskToDelete >= tasks.size()) {
             throw new NoSuchTaskException();
         }
         ui.showDeleteTask(tasks.get(taskToDelete), tasks.size());
-        tasks.remove(taskToDelete);
+        tasks.delete(taskToDelete);
     }
 
-    private static void printFileContents() throws IOException {
-        File dir = new File("./data");
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
-        File file = new File("./data/wing.txt");
-        if (!file.exists()) {
-            file.createNewFile();
-            return;
-        }
-        Scanner scanFile = new Scanner(file);
-        ui.showSavedList(scanFile);
-    }
-
-    private static void updateFile(ArrayList<Task> tasks) throws IOException {
+    private static void updateFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter("./data/wing.txt");
         StringBuilder updatedList = new StringBuilder();
-        for (Task task : tasks) {
+        for (Task task : tasks.getTasks()) {
             updatedList.append(task.toString()).append(System.lineSeparator());
         }
         String finalList = updatedList.toString();
@@ -110,14 +97,14 @@ public class Wing {
         ui = new Ui();
         ui.showWelcome();
         try {
-            printFileContents();
+            ui.showFileContents();
         } catch (FileNotFoundException e) {
             ui.showError("File not found!");
         } catch (IOException e) {
             ui.showError("Error printing: " + e.getMessage());
         }
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        tasks = new TaskList();
 
         while (true) {
             String line = ui.getLine().trim();
