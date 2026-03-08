@@ -1,12 +1,9 @@
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Wing {
 
+    private static Storage storage;
     private static Ui ui;
     private static TaskList tasks;
 
@@ -81,20 +78,10 @@ public class Wing {
         tasks.delete(taskToDelete);
     }
 
-    private static void updateFile(TaskList tasks) throws IOException {
-        FileWriter fw = new FileWriter("./data/wing.txt");
-        StringBuilder updatedList = new StringBuilder();
-        for (Task task : tasks.getTasks()) {
-            updatedList.append(task.toString()).append(System.lineSeparator());
-        }
-        String finalList = updatedList.toString();
-        fw.write(finalList);
-        fw.close();
-    }
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Storage.InvalidStorageFilePathException {
 
         ui = new Ui();
+        storage = new Storage("./data/wing.txt");
         ui.showWelcome();
         try {
             ui.showFileContents();
@@ -104,7 +91,12 @@ public class Wing {
             ui.showError("Error printing: " + e.getMessage());
         }
 
-        tasks = new TaskList();
+        try {
+            tasks = storage.loadTaskList();
+        } catch (Storage.StorageOperationException e) {
+          ui.showError("Error loading task list!");
+          tasks = new TaskList();
+        }
 
         while (true) {
             String line = ui.getLine().trim();
@@ -123,72 +115,72 @@ public class Wing {
             case "mark":
                 try {
                     markTask(tasks, line);
-                    updateFile(tasks);
+                    storage.saveTaskList(tasks);
                 } catch (NoSuchTaskException e) {
                     ui.showError("EH! No such task!");
-                } catch (IOException e) {
-                    ui.showError("Error updating: " + e.getMessage());
+                } catch (Storage.StorageOperationException e) {
+                    ui.showError("Error with storage save");
                 }
                 break;
 
             case "unmark":
                 try {
                     unmarkTask(tasks, line);
-                    updateFile(tasks);
+                    storage.saveTaskList(tasks);
                 } catch (NoSuchTaskException e) {
                     ui.showError("EH! No such task!");
-                } catch (IOException e) {
-                    ui.showError("Error updating: " + e.getMessage());
+                } catch (Storage.StorageOperationException e) {
+                    ui.showError("Error with storage save");
                 }
                 break;
 
             case "todo":
                 try {
                     addTodo(tasks, line);
-                    updateFile(tasks);
+                    storage.saveTaskList(tasks);
                 } catch (NoDescriptionException e) {
                     ui.showError("EH! Forgot your description!");
-                } catch (IOException e) {
-                    ui.showError("Error updating: " + e.getMessage());
+                } catch (Storage.StorageOperationException e) {
+                    ui.showError("Error with storage save");
                 }
                 break;
 
             case "deadline":
                 try {
                     addDeadline(tasks, line);
-                    updateFile(tasks);
+                    storage.saveTaskList(tasks);
                 } catch (NoByException e) {
                     ui.showError("EH! Forgot your /by deadline!");
                 } catch (NoDescriptionException e) {
                     ui.showError("EH! Forgot your description!");
-                } catch (IOException e) {
-                    ui.showError("Error updating: " + e.getMessage());
+                } catch (Storage.StorageOperationException e) {
+                    ui.showError("Error with storage save");
                 }
                 break;
 
             case "event":
                 try {
                     addEvent(tasks, line);
-                    updateFile(tasks);
+                    storage.saveTaskList(tasks);
                 } catch (NoFromException e) {
                     ui.showError("EH! Forgot your /from date!");
                 } catch (NoToException e) {
                     ui.showError("EH! Forgot your /to date!");
                 } catch (NoDescriptionException e) {
                     ui.showError("EH! Forgot your description!");
-                } catch (IOException e) {
-                    ui.showError("Error updating: " + e.getMessage());
+                } catch (Storage.StorageOperationException e) {
+                    ui.showError("Error with storage save");
                 }
                 break;
 
             case "delete":
                 try {
                     deleteTask(tasks, line);
-                    updateFile(tasks);
+                    storage.saveTaskList(tasks);
                 } catch (NoSuchTaskException e) {
                     ui.showError("EH! No such task!");
-                } catch (IOException e) {
-                    ui.showError("Error updating: " + e.getMessage());
+                } catch (Storage.StorageOperationException e) {
+                    ui.showError("Error with storage save");
                 }
                 break;
 

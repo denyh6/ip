@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -8,7 +7,7 @@ public class Ui {
     private static final String DIVIDER
             = "____________________________________________________________" + System.lineSeparator();
 
-    private static final String ERRORDIVIDER
+    private static final String ERROR_DIVIDER
             = "============================================================" + System.lineSeparator();
 
     private static final String startMessage
@@ -29,10 +28,6 @@ public class Ui {
 
     public void showWelcome() {
         System.out.println(startMessage);
-    }
-
-    public void showDivider() {
-        System.out.println(DIVIDER);
     }
 
     public String getLine() {
@@ -78,7 +73,7 @@ public class Ui {
     }
 
     public void showError(String error) {
-        System.out.println(ERRORDIVIDER + error + System.lineSeparator() + ERRORDIVIDER);
+        System.out.println(ERROR_DIVIDER + error + System.lineSeparator() + ERROR_DIVIDER);
     }
 
     public void showFileContents() throws IOException {
