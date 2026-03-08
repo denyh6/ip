@@ -69,7 +69,7 @@ public class Ui {
     }
 
     public void showInvalidCommand() {
-        System.out.println(DIVIDER + "EH! What talking you?" + System.lineSeparator() + DIVIDER);
+        System.out.println(ERROR_DIVIDER + "EH! What talking you?" + System.lineSeparator() + ERROR_DIVIDER);
     }
 
     public void showError(String error) {

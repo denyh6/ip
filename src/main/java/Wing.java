@@ -78,7 +78,7 @@ public class Wing {
         tasks.delete(taskToDelete);
     }
 
-    public static void main(String[] args) throws Storage.InvalidStorageFilePathException {
+    public static void main(String[] args) throws Storage.InvalidStorageFilePathException, WingException {
 
         ui = new Ui();
         storage = new Storage("./data/wing.txt");
@@ -99,10 +99,8 @@ public class Wing {
         }
 
         while (true) {
-            String line = ui.getLine().trim();
-            int firstSpaceIndex = line.indexOf(" ");
-            String firstWord = (firstSpaceIndex > -1) ? line.substring(0, firstSpaceIndex) : line;
-
+            String userInput = ui.getLine().trim();
+            String firstWord = Parser.parse(userInput);
             switch (firstWord) {
             case "bye":
                 ui.showBye();
@@ -114,7 +112,7 @@ public class Wing {
 
             case "mark":
                 try {
-                    markTask(tasks, line);
+                    markTask(tasks, userInput);
                     storage.saveTaskList(tasks);
                 } catch (NoSuchTaskException e) {
                     ui.showError("EH! No such task!");
@@ -125,7 +123,7 @@ public class Wing {
 
             case "unmark":
                 try {
-                    unmarkTask(tasks, line);
+                    unmarkTask(tasks, userInput);
                     storage.saveTaskList(tasks);
                 } catch (NoSuchTaskException e) {
                     ui.showError("EH! No such task!");
@@ -136,7 +134,7 @@ public class Wing {
 
             case "todo":
                 try {
-                    addTodo(tasks, line);
+                    addTodo(tasks, userInput);
                     storage.saveTaskList(tasks);
                 } catch (NoDescriptionException e) {
                     ui.showError("EH! Forgot your description!");
@@ -147,7 +145,7 @@ public class Wing {
 
             case "deadline":
                 try {
-                    addDeadline(tasks, line);
+                    addDeadline(tasks, userInput);
                     storage.saveTaskList(tasks);
                 } catch (NoByException e) {
                     ui.showError("EH! Forgot your /by deadline!");
@@ -160,7 +158,7 @@ public class Wing {
 
             case "event":
                 try {
-                    addEvent(tasks, line);
+                    addEvent(tasks, userInput);
                     storage.saveTaskList(tasks);
                 } catch (NoFromException e) {
                     ui.showError("EH! Forgot your /from date!");
@@ -175,7 +173,7 @@ public class Wing {
 
             case "delete":
                 try {
-                    deleteTask(tasks, line);
+                    deleteTask(tasks, userInput);
                     storage.saveTaskList(tasks);
                 } catch (NoSuchTaskException e) {
                     ui.showError("EH! No such task!");
