@@ -1,8 +1,16 @@
+package wing.storage;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import wing.task.Deadline;
+import wing.task.Event;
+import wing.task.Task;
+import wing.task.Todo;
+import wing.tasklist.TaskList;
 
 public class Storage {
 
@@ -12,7 +20,7 @@ public class Storage {
 
     public Storage(String filePath) throws InvalidStorageFilePathException {
         if (!isValidPath(filePath)) {
-            throw new InvalidStorageFilePathException("Storage file should end with '.txt'");
+            throw new InvalidStorageFilePathException("wing.storage.Storage file should end with '.txt'");
         }
 
         this.filePath = DEFAULT_STORAGE_FILEPATH;

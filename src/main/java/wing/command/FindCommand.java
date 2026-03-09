@@ -1,3 +1,10 @@
+package wing.command;
+
+import wing.storage.Storage;
+import wing.task.Task;
+import wing.tasklist.TaskList;
+import wing.ui.Ui;
+
 public class FindCommand extends Command {
 
     private final String userInput;

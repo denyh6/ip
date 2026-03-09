@@ -1,3 +1,17 @@
+package wing.parser;
+
+import wing.command.AddDeadlineCommand;
+import wing.command.AddEventCommand;
+import wing.command.AddTodoCommand;
+import wing.command.Command;
+import wing.command.DeleteCommand;
+import wing.command.ExitCommand;
+import wing.command.FindCommand;
+import wing.command.ListCommand;
+import wing.command.MarkCommand;
+import wing.command.UnmarkCommand;
+import wing.exception.WingException;
+
 public class Parser {
 
     public static Command parse(String userInput) throws WingException {

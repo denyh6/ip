@@ -1,5 +1,5 @@
 [T][X] borrow books
-[D][ ] have a party (by: 4pm)
+[D][X] have a party (by: 4pm)
 [E][ ] book books book (from: 3pm to: 4pm)
 [T][X] b o o k sometimes
 [D][X] b o o k (by: 4pm)

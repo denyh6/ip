@@ -1,4 +1,13 @@
+package wing;
+
 import java.io.IOException;
+
+import wing.command.Command;
+import wing.exception.WingException;
+import wing.parser.Parser;
+import wing.storage.Storage;
+import wing.tasklist.TaskList;
+import wing.ui.Ui;
 
 public class Wing {
 

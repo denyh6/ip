@@ -1,3 +1,13 @@
+package wing.command;
+
+import wing.exception.NoDescriptionException;
+import wing.exception.NoFromException;
+import wing.exception.NoToException;
+import wing.storage.Storage;
+import wing.task.Event;
+import wing.tasklist.TaskList;
+import wing.ui.Ui;
+
 public class AddEventCommand extends Command {
 
     private final String userInput;

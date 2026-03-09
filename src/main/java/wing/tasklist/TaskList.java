@@ -1,4 +1,8 @@
+package wing.tasklist;
+
 import java.util.ArrayList;
+
+import wing.task.Task;
 
 public class TaskList {
 

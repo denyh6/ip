@@ -1,6 +1,11 @@
+package wing.ui;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+
+import wing.task.Task;
+import wing.tasklist.TaskList;
 
 public class Ui {
 
@@ -12,12 +17,12 @@ public class Ui {
 
     private static final String startMessage
             = """
-                This is
-                  __  __  __  ____  __ _  ____
-                 \\   /   /  /|_  _||  | ||  __|_
-                  \\   /\\   /  _||_ | || || |__  |
-                   \\_/  \\_/  |____||_|__||______|
-                """ + DIVIDER + "Hello! I'm Wing."
+            This is
+              __  __  __  ____  __ _  ____
+             \\   /   /  /|_  _||  | ||  __|_
+              \\   /\\   /  _||_ | || || |__  |
+               \\_/  \\_/  |____||_|__||______|
+            """ + DIVIDER + "Hello! I'm wing.Wing."
             + System.lineSeparator() + "What can I do for you?" + System.lineSeparator() + DIVIDER;
 
     private final Scanner in;

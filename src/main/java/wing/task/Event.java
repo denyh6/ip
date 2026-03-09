@@ -1,3 +1,5 @@
+package wing.task;
+
 public class Event extends Task {
     protected String startToEndDate;
 
