@@ -2,26 +2,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
 
+    public static final String DEFAULT_STORAGE_FOLDERPATH = "./data";
     public static final String DEFAULT_STORAGE_FILEPATH = "./data/wing.txt";
 
-    public final Path path;
+    public final String filePath;
 
     public Storage(String filePath) throws InvalidStorageFilePathException {
-        path = Paths.get(filePath);
-        if (!isValidPath(path)) {
+        if (!isValidPath(filePath)) {
             throw new InvalidStorageFilePathException("Storage file should end with '.txt'");
         }
+        this.filePath = DEFAULT_STORAGE_FILEPATH;
     }
 
-    private static boolean isValidPath(Path filePath) {
-        return filePath.toString().endsWith(".txt");
+    private static boolean isValidPath(String filePath) {
+        return filePath.endsWith(".txt");
     }
 
     public void saveTaskList(TaskList taskList) throws StorageOperationException {
@@ -33,27 +32,29 @@ public class Storage {
             }
             fw.close();
         } catch (IOException ioe) {
-            throw new StorageOperationException("Error writing to file: " + path);
+            throw new StorageOperationException("Error writing to file: " + filePath);
         }
     }
 
-    public TaskList loadTaskList() throws StorageOperationException {
+    public ArrayList<Task> loadTaskList() throws IOException {
+        File dir = new File(DEFAULT_STORAGE_FOLDERPATH);
+        if (!dir.exists()) {
+            dir.mkdir();
+            throw new IOException("Directory does not exist");
+        }
+        File file = new File(DEFAULT_STORAGE_FILEPATH);
+        if (!file.exists()) {
+            file.createNewFile();
+            throw new IOException("File does not exist");
+        }
+        ArrayList<Task> loadedTaskList = new ArrayList<>();
+        Scanner s = new Scanner(file);
+        while (s.hasNextLine()) {
+            Task loadedTask = decodedLineToTask(s.nextLine());
+            loadedTaskList.add(loadedTask);
+        }
+        return loadedTaskList;
 
-        if (!Files.exists(path) || !Files.isRegularFile(path)) {
-            return new TaskList();
-        }
-        TaskList loadedTaskList = new TaskList();
-        try {
-            File file = new File(DEFAULT_STORAGE_FILEPATH);
-            Scanner s = new Scanner(file);
-            while (s.hasNextLine()) {
-                Task loadedTask = decodedLineToTask(s.nextLine());
-                loadedTaskList.add(loadedTask);
-            }
-            return loadedTaskList;
-        } catch (FileNotFoundException fnfe) {
-            throw new AssertionError("File not found: " + path);
-        }
     }
 
     private static Task decodedLineToTask(String line) {

@@ -27,7 +27,7 @@ public class Ui {
     }
 
     public void showWelcome() {
-        System.out.println(startMessage);
+        System.out.print(startMessage);
     }
 
     public String getLine() {
@@ -61,6 +61,10 @@ public class Ui {
     }
 
     public void showList(TaskList tasks) {
+        if (tasks.size() == 0) {
+            System.out.print(DIVIDER + "Your list is empty. YAYYY!" + System.lineSeparator() + DIVIDER);
+            return;
+        }
         System.out.print(DIVIDER + "Here's your list:" + System.lineSeparator());
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(" " + (i + 1) + ". " + tasks.get(i).toString());
@@ -68,30 +72,23 @@ public class Ui {
         System.out.print(DIVIDER);
     }
 
-    public void showInvalidCommand() {
-        System.out.println(ERROR_DIVIDER + "EH! What talking you?" + System.lineSeparator() + ERROR_DIVIDER);
-    }
-
     public void showError(String error) {
         System.out.println(ERROR_DIVIDER + error + System.lineSeparator() + ERROR_DIVIDER);
     }
 
     public void showFileContents() throws IOException {
-        File dir = new File("./data");
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
         File file = new File("./data/wing.txt");
-        if (!file.exists()) {
-            file.createNewFile();
+        Scanner scanFile = new Scanner(file);
+        if (file.length() == 0) {
+            System.out.println("You have nothing in your list and wing.txt file. YAYYY!"
+                    + System.lineSeparator() + DIVIDER);
             return;
         }
-        Scanner scanFile = new Scanner(file);
-        System.out.println("Here's your previous saved list btw");
+        System.out.println("Here's your previous saved list btw:");
         while (scanFile.hasNext()) {
             System.out.println(scanFile.nextLine());
         }
-        System.out.println(System.lineSeparator());
+        System.out.println(DIVIDER);
     }
 
 }

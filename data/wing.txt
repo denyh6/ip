@@ -1,4 +1,0 @@
-[D][X] borrow 2 books (by: 4pm)
-[E][ ] borrow 3 books (from: 3pm to: 6pm)
-[T][X] read all these books
-[E][ ] borrow 5 books (from: 4 pm to: 2pm)
