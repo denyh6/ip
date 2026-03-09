@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,13 +8,13 @@ public class Storage {
 
     public static final String DEFAULT_STORAGE_FOLDERPATH = "./data";
     public static final String DEFAULT_STORAGE_FILEPATH = "./data/wing.txt";
-
     public final String filePath;
 
     public Storage(String filePath) throws InvalidStorageFilePathException {
         if (!isValidPath(filePath)) {
             throw new InvalidStorageFilePathException("Storage file should end with '.txt'");
         }
+
         this.filePath = DEFAULT_STORAGE_FILEPATH;
     }
 
@@ -39,13 +38,19 @@ public class Storage {
     public ArrayList<Task> loadTaskList() throws IOException {
         File dir = new File(DEFAULT_STORAGE_FOLDERPATH);
         if (!dir.exists()) {
-            dir.mkdir();
-            throw new IOException("Directory does not exist");
+            boolean isFolderCreated = dir.mkdir();
+            if (!isFolderCreated) {
+                throw new IOException("Unable to create folder: " + DEFAULT_STORAGE_FOLDERPATH);
+            }
+            throw new IOException("File not found!");
         }
         File file = new File(DEFAULT_STORAGE_FILEPATH);
         if (!file.exists()) {
-            file.createNewFile();
-            throw new IOException("File does not exist");
+            boolean isFileCreated = file.createNewFile();
+            if (!isFileCreated) {
+                throw new IOException("Unable to create file: " + DEFAULT_STORAGE_FILEPATH);
+            }
+            throw new IOException("File not found!");
         }
         ArrayList<Task> loadedTaskList = new ArrayList<>();
         Scanner s = new Scanner(file);
@@ -61,6 +66,7 @@ public class Storage {
         char taskType = line.charAt(1);
         boolean isTaskDone = (line.charAt(4) == 'X');
         String taskDescription;
+
         switch (taskType) {
         case 'T':
             taskDescription = line.substring(7);

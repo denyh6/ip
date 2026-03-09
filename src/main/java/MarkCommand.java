@@ -11,6 +11,7 @@ public class MarkCommand extends Command {
         if (taskToMark < 0 || taskToMark >= tasks.size()) {
             throw new NoSuchTaskException();
         }
+
         tasks.get(taskToMark).markAsDone();
         ui.showMarkTask(tasks.get(taskToMark));
     }

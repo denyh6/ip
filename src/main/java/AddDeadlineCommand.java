@@ -14,8 +14,10 @@ public class AddDeadlineCommand extends Command {
         if (byIndex == -1) {
             throw new NoByException();
         }
+
         String taskToDeadline = line.substring(9, byIndex - 1);
         String by = line.substring(byIndex + 4);
+
         Deadline newDeadline = new Deadline(taskToDeadline, by);
         tasks.add(newDeadline);
         ui.showAddTask(newDeadline, tasks.size());

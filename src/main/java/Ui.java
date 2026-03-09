@@ -65,6 +65,7 @@ public class Ui {
             System.out.print(DIVIDER + "Your list is empty. YAYYY!" + System.lineSeparator() + DIVIDER);
             return;
         }
+
         System.out.print(DIVIDER + "Here's your list:" + System.lineSeparator());
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(" " + (i + 1) + ". " + tasks.get(i).toString());
@@ -84,11 +85,25 @@ public class Ui {
                     + System.lineSeparator() + DIVIDER);
             return;
         }
+
         System.out.println("Here's your previous saved list btw:");
         while (scanFile.hasNext()) {
-            System.out.println(scanFile.nextLine());
+            System.out.println(" " + scanFile.nextLine());
         }
         System.out.println(DIVIDER);
+    }
+
+    public void showFoundTasks(TaskList tasksWithKeyword, String keyword) {
+        if (tasksWithKeyword.size() == 0) {
+            System.out.println(DIVIDER + "No task descriptions have that word :,(" + System.lineSeparator() + DIVIDER);
+            return;
+        }
+
+        System.out.print(DIVIDER + "Here are the tasks that have the word '" + keyword + "':" + System.lineSeparator());
+        for (int i = 0; i < tasksWithKeyword.size(); i++) {
+            System.out.println(" " + (i + 1) + ". " + tasksWithKeyword.get(i).toString());
+        }
+        System.out.print(DIVIDER);
     }
 
 }

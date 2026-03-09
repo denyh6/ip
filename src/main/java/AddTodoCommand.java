@@ -10,7 +10,9 @@ public class AddTodoCommand extends Command {
         if (line.equals("todo")) {
             throw new NoDescriptionException();
         }
+
         String taskTodo = line.substring(5);
+
         Task newTask = new Todo(taskTodo);
         tasks.add(newTask);
         ui.showAddTask(newTask, tasks.size());

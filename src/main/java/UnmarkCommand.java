@@ -11,6 +11,7 @@ public class UnmarkCommand extends Command {
         if (taskToUnmark < 0 || taskToUnmark >= tasks.size()) {
             throw new NoSuchTaskException();
         }
+
         tasks.get(taskToUnmark).markAsNotDone();
         ui.showUnmarkTask(tasks.get(taskToUnmark));
     }

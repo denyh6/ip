@@ -18,8 +18,10 @@ public class AddEventCommand extends Command {
         if (!line.contains("/to")) {
             throw new NoToException();
         }
+
         String taskToEvent = line.substring(6, startIndex - 1);
         String startToEndDate = line.substring(startIndex);
+
         Event newEvent = new Event(taskToEvent, startToEndDate);
         tasks.add(newEvent);
         ui.showAddTask(newEvent, tasks.size());

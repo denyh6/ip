@@ -11,6 +11,7 @@ public class DeleteCommand extends Command {
         if (taskToDelete < 0 || taskToDelete >= tasks.size()) {
             throw new NoSuchTaskException();
         }
+
         ui.showDeleteTask(tasks.get(taskToDelete), tasks.size());
         tasks.delete(taskToDelete);
     }

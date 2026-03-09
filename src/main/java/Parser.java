@@ -4,6 +4,7 @@ public class Parser {
         if (userInput == null) {
             throw new WingException("Bruh. You gave me nothing.");
         }
+
         int firstSpaceIndex = userInput.indexOf(" ");
         String firstWord = (firstSpaceIndex > -1) ? userInput.substring(0, firstSpaceIndex) : userInput;
 
@@ -16,6 +17,7 @@ public class Parser {
             case "deadline" -> new AddDeadlineCommand(userInput);
             case "event" -> new AddEventCommand(userInput);
             case "delete" -> new DeleteCommand(userInput);
+            case "find" -> new FindCommand(userInput);
             default -> throw new WingException("What talking?");
         };
 
