@@ -6,18 +6,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import wing.exception.InvalidStorageFilePathException;
+import wing.exception.StorageOperationException;
 import wing.task.Deadline;
 import wing.task.Event;
 import wing.task.Task;
 import wing.task.Todo;
 import wing.tasklist.TaskList;
 
+/**
+ * Represents the file used to store address book data.
+ */
 public class Storage {
 
+    /** Default file path used if the user doesn't provide the file name. */
     public static final String DEFAULT_STORAGE_FOLDERPATH = "./data";
     public static final String DEFAULT_STORAGE_FILEPATH = "./data/wing.txt";
     public final String filePath;
 
+    /**
+     * Constructs a Storage instance of the specified file.
+     *
+     * @param filePath File path of the wing.txt file.
+     * @throws InvalidStorageFilePathException if the given file path is invalid
+     */
     public Storage(String filePath) throws InvalidStorageFilePathException {
         if (!isValidPath(filePath)) {
             throw new InvalidStorageFilePathException("wing.storage.Storage file should end with '.txt'");
@@ -26,10 +38,23 @@ public class Storage {
         this.filePath = DEFAULT_STORAGE_FILEPATH;
     }
 
+    /**
+     * Returns true if the given path is acceptable as a storage file.
+     * The file path is considered acceptable if it ends with '.txt'
+     *
+     * @param filePath File path of wing.txt.
+     * @return true, if filePath ends with ".txt".
+     */
     private static boolean isValidPath(String filePath) {
         return filePath.endsWith(".txt");
     }
 
+    /**
+     * Saves the {@code tasks} data to the storage file.
+     *
+     * @param taskList current TaskList to be saved to wing.txt.
+     * @throws StorageOperationException if there are errors converting and/or storing data to file.
+     */
     public void saveTaskList(TaskList taskList) throws StorageOperationException {
         try {
             FileWriter fw = new FileWriter(DEFAULT_STORAGE_FILEPATH);
@@ -43,6 +68,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the {@code Storage} data from this storage file, and then returns it as an ArrayList of Tasks.
+     * Returns an empty {@code ArrayList} if the file or directory folder does not exist.
+     *
+     * @return ArrayList of Tasks extracted from wing.txt.
+     * @throws IOException if there were errors reading and/or converting data from file, or creating it.
+     */
     public ArrayList<Task> loadTaskList() throws IOException {
         File dir = new File(DEFAULT_STORAGE_FOLDERPATH);
         if (!dir.exists()) {
@@ -70,6 +102,13 @@ public class Storage {
 
     }
 
+    /**
+     * Understands the toString representation of the tasks from the wing.txt file.
+     * Generates a specific task (Todo, Deadline or Event) from each line of the file.
+     *
+     * @param line Each line in wing.txt that represents a saved Task.
+     * @return Corresponding Task from a given line of the String representation of a task.
+     */
     private static Task decodedLineToTask(String line) {
         char taskType = line.charAt(1);
         boolean isTaskDone = (line.charAt(4) == 'X');
@@ -96,20 +135,6 @@ public class Storage {
             throw new AssertionError("Invalid task type: " + taskType);
         }
 
-    }
-
-    //As mentioned in addressbook-Level2, Note the use of nested classes below.
-
-    public static class InvalidStorageFilePathException extends Exception {
-        public InvalidStorageFilePathException(String message) {
-            super(message);
-        }
-    }
-
-    public static class StorageOperationException extends Exception {
-        public StorageOperationException(String message) {
-            super(message);
-        }
     }
 
 }
