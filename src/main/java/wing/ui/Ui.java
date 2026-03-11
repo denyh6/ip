@@ -25,7 +25,7 @@ public class Ui {
              \\   /   /  /|_  _||  | ||  __|_
               \\   /\\   /  _||_ | || || |__  |
                \\_/  \\_/  |____||_|__||______|
-            """ + DIVIDER + "Hello! I'm wing.Wing."
+            """ + DIVIDER + "Hello! I'm wing. This is the Branch-Level-6 Branch!"
             + System.lineSeparator() + "What can I do for you?" + System.lineSeparator() + DIVIDER;
 
     private final Scanner in;
