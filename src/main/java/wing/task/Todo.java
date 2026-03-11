@@ -20,7 +20,7 @@ public class Todo extends Task {
      * Constructs a new Todo task with the given description and whether it isDone.
      *
      * @param description Todo description.
-     * @param isDone Boolean whether Todo isDone.
+     * @param isDone      Boolean whether Todo isDone.
      */
     public Todo(String description, boolean isDone) {
         super(description, isDone);
@@ -37,4 +37,5 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
 }

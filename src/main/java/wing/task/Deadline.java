@@ -12,7 +12,7 @@ public class Deadline extends Task {
      * Inherited Task constructor sets isDone to false.
      *
      * @param description Deadline description.
-     * @param by Deadline's entire /by String. For example, "/by 4pm".
+     * @param by          Deadline's entire /by String. For example, "/by 4pm".
      */
     public Deadline(String description, String by) {
         super(description);
@@ -24,8 +24,8 @@ public class Deadline extends Task {
      * and its deadline.
      *
      * @param description Deadline description.
-     * @param by Deadline's entire /by String. For example, "/by 4pm".
-     * @param isDone Boolean whether Deadline isDone.
+     * @param by          Deadline's entire /by String. For example, "/by 4pm".
+     * @param isDone      Boolean whether Deadline isDone.
      */
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
@@ -44,4 +44,5 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
 }

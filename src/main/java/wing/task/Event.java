@@ -11,7 +11,7 @@ public class Event extends Task {
      * Constructs a new Event task with the given description and its start to end date range.
      * Inherited Task constructor sets isDone to false.
      *
-     * @param description Event description.
+     * @param description    Event description.
      * @param startToEndDate Event's entire /from to /to String. For example, "/from 3pm /to 4pm".
      */
     public Event(String description, String startToEndDate) {
@@ -23,9 +23,9 @@ public class Event extends Task {
      * Constructs a new Event task with the given description, whether it isDone
      * and its start to end date range.
      *
-     * @param description Event description.
+     * @param description    Event description.
      * @param startToEndDate Event's entire /from to /to String. For example, "/from 3pm /to 4pm".
-     * @param isDone Boolean whether Event isDone.
+     * @param isDone         Boolean whether Event isDone.
      */
     public Event(String description, String startToEndDate, boolean isDone) {
         super(description, isDone);
@@ -45,4 +45,5 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (" + startToEndDate.replace("/from", "from:")
                 .replace("/to", "to:") + ")";
     }
+
 }

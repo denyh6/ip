@@ -19,7 +19,9 @@ import wing.tasklist.TaskList;
  */
 public class Storage {
 
-    /** Default file path used if the user doesn't provide the file name. */
+    /**
+     * Default file path used if the user doesn't provide the file name.
+     */
     public static final String DEFAULT_STORAGE_FOLDERPATH = "./data";
     public static final String DEFAULT_STORAGE_FILEPATH = "./data/wing.txt";
     public final String filePath;

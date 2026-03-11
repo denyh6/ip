@@ -30,12 +30,16 @@ public class Ui {
 
     private final Scanner in;
 
-    /** Constructs an Ui instance and initialises the input scanner. */
+    /**
+     * Constructs an Ui instance and initialises the input scanner.
+     */
     public Ui() {
         this.in = new Scanner(System.in);
     }
 
-    /** Prints the welcome message upon the start of the application */
+    /**
+     * Prints the welcome message upon the start of the application
+     */
     public void showWelcome() {
         System.out.print(startMessage);
     }
@@ -49,7 +53,9 @@ public class Ui {
         return in.nextLine();
     }
 
-    /** Prints the goodbye message for when user gives exit command */
+    /**
+     * Prints the goodbye message for when user gives exit command
+     */
     public void showBye() {
         System.out.println(DIVIDER + "Ok. Bye." + System.lineSeparator() + DIVIDER);
     }
@@ -57,7 +63,7 @@ public class Ui {
     /**
      * Prints notification that given task was added to main TaskList.
      *
-     * @param task Task that was added.
+     * @param task       Task that was added.
      * @param numOfTasks Total number of tasks in TaskList, after adding the given task.
      */
     public void showAddTask(Task task, int numOfTasks) {
@@ -69,7 +75,7 @@ public class Ui {
     /**
      * Prints notification that a task was removed from main TaskList.
      *
-     * @param task Task that was removed.
+     * @param task       Task that was removed.
      * @param numOfTasks Total number of tasks in TaskList, after removing the given task.
      */
     public void showDeleteTask(Task task, int numOfTasks) {
@@ -151,7 +157,7 @@ public class Ui {
      * Prints a list of tasks that contain the given keyword.
      *
      * @param tasksWithKeyword TaskList containing tasks with the keyword in its description.
-     * @param keyword keyword input by the user to be found.
+     * @param keyword          keyword input by the user to be found.
      */
     public void showFoundTasks(TaskList tasksWithKeyword, String keyword) {
         if (tasksWithKeyword.size() == 0) {

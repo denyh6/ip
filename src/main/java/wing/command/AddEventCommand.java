@@ -32,10 +32,10 @@ public class AddEventCommand extends Command {
      * Prints notification that it is added.
      *
      * @param tasks Current TaskList of Tasks.
-     * @param line User input.
-     * @param ui UI handler for user interactions.
-     * @throws NoFromException If user does not input /from start date using "/from".
-     * @throws NoToException If user does not input /to end date using "/to".
+     * @param line  User input.
+     * @param ui    UI handler for user interactions.
+     * @throws NoFromException        If user does not input /from start date using "/from".
+     * @throws NoToException          If user does not input /to end date using "/to".
      * @throws NoDescriptionException If user does not input description.
      */
     private static void addEvent(TaskList tasks, String line, Ui ui)
@@ -64,8 +64,8 @@ public class AddEventCommand extends Command {
      * Calls addEvent method to add new Event to current TaskList.
      * Stores updated TaskList to wing.txt.
      *
-     * @param tasks Current TaskList of Tasks.
-     * @param ui UI handler for user interactions.
+     * @param tasks   Current TaskList of Tasks.
+     * @param ui      UI handler for user interactions.
      * @param storage Storage handler for recording the TaskList.
      */
     @Override
@@ -82,6 +82,7 @@ public class AddEventCommand extends Command {
         } catch (StorageOperationException e) {
             ui.showError("Error with storage save");
         }
+
     }
 
 }
