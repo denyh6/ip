@@ -1,8 +1,3 @@
-[T][X] borrow books
-[D][X] have a party (by: 4pm)
-[E][ ] book books book (from: 3pm to: 4pm)
-[D][X] b o o k (by: 4pm)
-[E][ ] wait (from: book to: 4pm)
-[T][X] book.lol
-[E][X] just trybook (from: 3pm to: 4pm)
-[D][ ] boo (by: book)
+[T][ ] buy a 6-piece boneless meal
+[D][X] finish all the ranch (by: sister comes home)
+[E][ ] take away Wingstop during non-rush hour (from: 4pm to: 5pm)
