@@ -98,7 +98,7 @@ public class Wing {
                 \\   /   /  /|_  _||  | ||  __|_
                  \\   /\\   /  _||_ | || || |__  |
                   \\_/  \\_/  |____||_|__||______|
-               """ + DIVIDER + "Hello! I'm Wing."
+               """ + DIVIDER + "Hello! I'm Wing. This is the Branch-Level-7 Branch!"
                 + System.lineSeparator() + "What can I do for you?" + System.lineSeparator() + DIVIDER;
 
         System.out.println(startMessage);
