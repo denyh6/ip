@@ -19,7 +19,7 @@ that helps you keep track of all your various tasks.
 ***Note**: All Todos, Deadlines, and Events are considered a Task.
 Take it that they are <ins>specific</ins> types of Tasks.*
 
-## Add Todos
+## Adding a Todo : `todo`
 
 <!-- // Describe the action and its outcome. -->
 A Todo is a task without any date/time attached to it. I can add one to your task list.  
@@ -39,7 +39,7 @@ Now there's 9 task(s) in your list.
 ____________________________________________________________
 ```
 
-## Add Deadlines
+## Adding a Deadline : `deadline`
 
 A Deadline is a task that needs to be done before a specific date/time. I can add one to your task list.  
 *e.g., finish all the ranch before sister comes home*
@@ -55,7 +55,7 @@ Now there's 10 task(s) in your list.
 ____________________________________________________________
 ```
 
-## Add Events
+## Adding an Event : `event`
 
 An Event is a task that starts at a specific date/time and ends at a specific date/time. 
 I can add one to your task list.  
@@ -72,7 +72,7 @@ Now there's 11 task(s) in your list.
 ____________________________________________________________
 ```
 
-## List your tasks
+## Listing all tasks : `list`
 
 I can list out all the tasks (i.e. Todos, Deadlines and Events) in your task list.  
 *e.g., list out all the tasks in my task list right now*
@@ -94,7 +94,7 @@ Here's your list:
 ____________________________________________________________
 ```
 
-## Delete Tasks
+## Deleting a Task : `delete`
 
 I can delete any task from your task list. Out of sight, out of mind!  
 Just give me the task's index in your task list.  
@@ -111,7 +111,7 @@ Now there's 7 task(s) in your list.
 ____________________________________________________________
 ```
 
-## Mark Tasks
+## Marking a Task : `mark`
 
 I can mark any task in your task list as done. ( Denoted as [X] )  
 Just give me the task's index in your task list.  
@@ -127,7 +127,7 @@ YAY! I've marked this task as done:
 ____________________________________________________________
 ```
 
-## Unmark Tasks
+## Unmarking a Task : `unmark`
 
 Realised you're not done with a task? I can unmark any task in your task list.  
 Just give me the task's index in your task list.  
@@ -143,11 +143,11 @@ ok sure. This task is unmarked:
 ____________________________________________________________
 ```
 
-## Find Tasks with a keyword
+## Find Tasks with a keyword : `find`
 
-I can find and list out all the tasks in your task list that has a keyword you want in its description.
-Even if its part of another word or phrase!  
-**Note**: ONLY if the keyword is in the task's description. NOT in its /by, /from or /to dates.  
+I can list out all the tasks in your task list that has a keyword you want in its description.
+Even if its part of another word or phrase! The search is case-insensitive.    
+**Note**: ONLY if the keyword is in the task's description. NOT in its /by, /from or /to dates.
 *e.g., find tasks with the word book in its description*
 
 Example input: `find book`
@@ -161,7 +161,7 @@ Here are the tasks that have the word 'book':
 ____________________________________________________________
 ```
 
-## Saying goodbye
+## Exiting the program : `bye`
 
 To exit this application, just say "bye". I'll get the hint that you're sick and tired of me.  
 *e.g., Wing, go to sleep. bye!*
@@ -174,3 +174,9 @@ ____________________________________________________________
 Ok. Bye.
 ____________________________________________________________
 ```
+
+## Saving the data
+
+Task list data is saved in a file called wing.txt (located in `./data/wing.txt`) automatically 
+after any command that changes the data. There is no need to save manually.  
+Don't worry! Even if you're starting fresh or the file isn't there, I will create one for you <3
