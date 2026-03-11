@@ -26,7 +26,7 @@ public class Parser {
      */
     public static Command parse(String userInput) throws WingException {
         if (userInput.isEmpty()) {
-            throw new WingException("Bruh. You gave me nothing.");
+            throw new WingException("Eh! Bruh you gave me nothing.");
         }
 
         int firstSpaceIndex = userInput.indexOf(" ");
