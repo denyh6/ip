@@ -30,10 +30,10 @@ public class DeleteCommand extends Command {
      * Removes Task from current TaskList.
      *
      * @param tasks Current TaskList of Tasks.
-     * @param line User input.
-     * @param ui UI handler for user interactions.
+     * @param line  User input.
+     * @param ui    UI handler for user interactions.
      * @throws NoSuchTaskException If a Task with the given index does not exist in the current TaskList.
-     * @throws WingException If user does not input index of Task to remove.
+     * @throws WingException       If user does not input index of Task to remove.
      */
     private static void deleteTask(TaskList tasks, String line, Ui ui) throws NoSuchTaskException, WingException {
         if (line.equals("delete")) {
@@ -58,8 +58,8 @@ public class DeleteCommand extends Command {
      * Calls deleteTask method to remove given task from current TaskList.
      * Stores updated TaskList to wing.txt.
      *
-     * @param tasks Current TaskList of Tasks.
-     * @param ui UI handler for user interactions.
+     * @param tasks   Current TaskList of Tasks.
+     * @param ui      UI handler for user interactions.
      * @param storage Storage handler for recording the TaskList.
      */
     @Override
@@ -74,6 +74,7 @@ public class DeleteCommand extends Command {
         } catch (WingException e) {
             ui.showError(e.getMessage());
         }
+
     }
 
 }

@@ -30,10 +30,10 @@ public class MarkCommand extends Command {
      * Prints notification that it is marked.
      *
      * @param tasks Current TaskList of Tasks.
-     * @param line User input.
-     * @param ui UI handler for user interactions.
+     * @param line  User input.
+     * @param ui    UI handler for user interactions.
      * @throws NoSuchTaskException If a Task with the given index does not exist in the current TaskList.
-     * @throws WingException If the input does not contain an integer representing a Task index.
+     * @throws WingException       If the input does not contain an integer representing a Task index.
      */
     private static void markTask(TaskList tasks, String line, Ui ui) throws NoSuchTaskException, WingException {
         if (line.equals("mark")) {
@@ -58,8 +58,8 @@ public class MarkCommand extends Command {
      * Calls markTask method to mark intended task as done.
      * Stores updated TaskList to wing.txt.
      *
-     * @param tasks Current TaskList of Tasks.
-     * @param ui UI handler for user interactions.
+     * @param tasks   Current TaskList of Tasks.
+     * @param ui      UI handler for user interactions.
      * @param storage Storage handler for recording the TaskList.
      */
     @Override
@@ -74,6 +74,7 @@ public class MarkCommand extends Command {
         } catch (WingException e) {
             ui.showError(e.getMessage());
         }
+
     }
 
 }

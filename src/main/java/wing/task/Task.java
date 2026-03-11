@@ -22,7 +22,7 @@ public abstract class Task {
      * Constructs a new Task with a description and whether it is done.
      *
      * @param description Description of the task.
-     * @param isDone true, if the task is marked (done). False, if task is unmarked (not done).
+     * @param isDone      True, if the task is marked (done). False, if task is unmarked (not done).
      */
     public Task(String description, boolean isDone) {
         this.description = description;
@@ -47,12 +47,16 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    /** Sets the isDone boolean member of the task to true (done). */
+    /**
+     * Sets the isDone boolean member of the task to true (done).
+     */
     public void markAsDone() {
         isDone = true;
     }
 
-    /** Sets the isDone boolean member of the task to false (not done). */
+    /**
+     * Sets the isDone boolean member of the task to false (not done).
+     */
     public void markAsNotDone() {
         isDone = false;
     }
@@ -67,4 +71,5 @@ public abstract class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + description;
     }
+
 }

@@ -65,5 +65,7 @@ public class FindCommand extends Command {
         } catch (WingException e) {
             ui.showError(e.getMessage());
         }
+
     }
+
 }

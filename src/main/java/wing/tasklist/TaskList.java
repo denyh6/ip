@@ -11,7 +11,9 @@ public class TaskList {
 
     private final ArrayList<Task> tasks;
 
-    /** Creates an empty tasklist. */
+    /**
+     * Creates an empty tasklist.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
@@ -53,12 +55,16 @@ public class TaskList {
         return tasks.get(taskIndex);
     }
 
-    /** Returns the ArrayList of the TaskList. */
+    /**
+     * Returns the ArrayList of the TaskList.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    /** Returns the number of tasks in the TaskList. */
+    /**
+     * Returns the number of tasks in the TaskList.
+     */
     public int size() {
         return tasks.size();
     }
