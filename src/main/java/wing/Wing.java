@@ -45,9 +45,9 @@ public class Wing {
      *
      * @throws FileNotFoundException If ui.showFileContents() cannot find wing.txt.
      */
-    public void run() throws FileNotFoundException {
+    public void run() throws IOException {
         ui.showWelcome();
-        ui.showFileContents();
+        ui.showFileContents(storage.loadTaskList());
         boolean isExit = false;
         while (!isExit) {
             try {

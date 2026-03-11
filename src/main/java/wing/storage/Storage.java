@@ -84,16 +84,17 @@ public class Storage {
             if (!isFolderCreated) {
                 throw new IOException("Unable to create folder: " + DEFAULT_STORAGE_FOLDERPATH);
             }
-            throw new IOException("File not found!");
         }
+
         File file = new File(DEFAULT_STORAGE_FILEPATH);
         if (!file.exists()) {
             boolean isFileCreated = file.createNewFile();
             if (!isFileCreated) {
                 throw new IOException("Unable to create file: " + DEFAULT_STORAGE_FILEPATH);
             }
-            throw new IOException("File not found!");
+            return new ArrayList<>();
         }
+
         ArrayList<Task> loadedTaskList = new ArrayList<>();
         Scanner s = new Scanner(file);
         while (s.hasNextLine()) {

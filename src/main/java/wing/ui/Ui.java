@@ -1,7 +1,6 @@
 package wing.ui;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import wing.task.Task;
@@ -133,24 +132,23 @@ public class Ui {
     }
 
     /**
-     * Prints the data in the wing.txt file.
+     * Prints the task list loaded from the wing.txt file.
      *
-     * @throws FileNotFoundException If wing.txt file is not found.
+     * @param loadedTaskList Array list of Tasks loaded from wing.txt
      */
-    public void showFileContents() throws FileNotFoundException {
-        File file = new File("./data/wing.txt");
-        Scanner scanFile = new Scanner(file);
-        if (file.length() == 0) {
+    public void showFileContents(ArrayList<Task> loadedTaskList) {
+        if (loadedTaskList.isEmpty()) {
             System.out.println("You have nothing in your list and wing.txt file. YAYYY!"
                     + System.lineSeparator() + DIVIDER);
             return;
         }
 
         System.out.println("Here's your previous saved list btw:");
-        while (scanFile.hasNext()) {
-            System.out.println(" " + scanFile.nextLine());
+        for (int i = 0; i < loadedTaskList.size(); i++) {
+            System.out.println(" " + (i + 1) + ". " + loadedTaskList.get(i).toString());
         }
-        System.out.println(DIVIDER);
+        System.out.print(DIVIDER);
+
     }
 
     /**
