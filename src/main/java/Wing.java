@@ -83,7 +83,7 @@ public class Wing {
         }
         String taskToEvent = line.substring(6, startIndex - 1);
         String startToEndDate = line.substring(startIndex);
-        tasks[taskCounter] = new Event(taskToEvent, startToEndDate);
+        tasks[taskCounter] = new Task(taskToEvent, startToEndDate);
         System.out.println(DIVIDER + "GOSH another event. I've added this task: " + System.lineSeparator()
                 + tasks[taskCounter].toString() + System.lineSeparator()
                 + "Now you have " + (taskCounter + 1) + " task(s) in the list." + System.lineSeparator() + DIVIDER);
